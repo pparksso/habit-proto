@@ -10,4 +10,72 @@ body {
     width: 375px;
     height: 812px;
     background-color: #fff;
+    padding: 10px;
+    position: relative;
+}
+.p-header {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+}
+.p-header img {
+    width: 100%;
+}
+
+/* home */
+.home-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+    span {
+        font-size: 22px;
+        font-weight: bold;
+    }
+    button {
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.list {
+    padding-top: 30px;
+    height: calc(812px - 100px);
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    li {
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        padding: 10px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+        input[type='checkbox'] {
+            margin-right: 10px;
+        }
+        span {
+            width: 100%;
+            background-color: #242424;
+            display: inline-block;
+        }
+    }
+}
+.home-link {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 100%;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #eee;
 }
