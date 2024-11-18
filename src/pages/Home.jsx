@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import DateContext from '../contexts/DateContext';
 import { formatDate } from '../utils/date';
-import { Link } from 'react-router-dom';
+import Calendar from '../assets/calendar.png';
 
 const Home = () => {
     const { selectedDate } = useContext(DateContext);
@@ -12,7 +13,10 @@ const Home = () => {
         text: `${idx + 1}번째`,
     }));
 
-    const textClickHandler = () => {};
+    const textClickHandler = (num) => {
+        setClicked(num);
+        // 클릭한 칸(idx?)만 인풋으로 변경 및, icon 출력
+    };
 
     return (
         <>
@@ -22,21 +26,29 @@ const Home = () => {
             </div>
             <div className="list">
                 <ul>
-                    {sampleItems.map((item) => (
+                    {sampleItems.map((item, idx) => (
                         <li key={item.id}>
                             <input type="checkbox" />
-                            <span onClick={textClickHandler}>{item.text}</span>
+                            {clicked !== idx ? (
+                                <span onClick={() => textClickHandler(idx)}>
+                                    {item.text}
+                                </span>
+                            ) : (
+                                <>
+                                    <input
+                                        type="text"
+                                        autoFocus
+                                        value={item.text}
+                                    />
+                                    <Link>i</Link>
+                                </>
+                            )}
                         </li>
                     ))}
-                    {/* span을 클릭 시 인풋으로 변경되며, 오른쪽 끝에 아이콘 출력(수정페이지로 이동) */}
-                    {/* <li>
-                        <input type="checkbox" />
-                        <span>첫번째</span>
-                    </li> */}
                 </ul>
             </div>
             <Link className="home-link" to="/calendar">
-                캘린더
+                <img src={Calendar} />
             </Link>
         </>
     );

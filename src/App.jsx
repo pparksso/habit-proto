@@ -6,6 +6,7 @@ import './styles/transition.css';
 import Home from './pages/Home';
 import Loading from './pages/Loading';
 import Calendar from './pages/Calendar';
+import Add from './pages/Add';
 import header from './assets/phone_header.png';
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/calendar" element={<Calendar />} />
                         <Route path="/loading" element={<Loading />} />
+                        <Route path="/add" element={<Add />} />
+                        <Route path="/edit/:id" element={<Add />} />
                     </Routes>
                 </CSSTransition>
             </TransitionGroup>

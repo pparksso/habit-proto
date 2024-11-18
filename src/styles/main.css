@@ -61,15 +61,27 @@ body {
         }
         span {
             width: 100%;
-            background-color: #242424;
             display: inline-block;
+        }
+        input[type='text'] {
+            flex-grow: 1;
+        }
+        a {
+            margin-left: 10px;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #000;
+            border-radius: 100%;
         }
     }
 }
 .home-link {
     position: absolute;
-    bottom: 30px;
-    right: 30px;
+    bottom: 25px;
+    right: 25px;
     border-radius: 100%;
     border: 1px solid #ddd;
     display: flex;
