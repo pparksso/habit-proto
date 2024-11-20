@@ -33,7 +33,7 @@ body {
         font-size: 22px;
         font-weight: bold;
     }
-    button {
+    a {
         font-size: 24px;
         display: flex;
         align-items: center;
@@ -90,4 +90,36 @@ body {
     width: 60px;
     height: 60px;
     background-color: #eee;
+}
+
+/* calendar */
+.calendar-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 30px 0 0 0;
+    span {
+        font-weight: bold;
+        font-size: 24px;
+        flex-grow: 1;
+        text-align: center;
+    }
+    button {
+        font-size: 18px;
+        padding: 0 5px;
+    }
+}
+.calendar-body {
+    padding: 20px 0 0 0;
+    .weekly {
+        display: flex;
+        font-size: 12px;
+        li {
+            flex-grow: 1;
+            text-align: center;
+            &:last-child {
+                color: rgba(255, 47, 47, 1);
+            }
+        }
+    }
 }

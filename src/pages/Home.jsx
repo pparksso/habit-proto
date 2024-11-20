@@ -22,7 +22,7 @@ const Home = () => {
         <>
             <div className="home-top">
                 <span>{formatDate(selectedDate)}</span>
-                <button>+</button>
+                <Link to="/add">+</Link>
             </div>
             <div className="list">
                 <ul>
