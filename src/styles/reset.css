@@ -53,7 +53,7 @@ table {
 }
 button {
     background: none;
-    padding: none;
+    padding: 0;
     outline: none;
     border: none;
     cursor: pointer;

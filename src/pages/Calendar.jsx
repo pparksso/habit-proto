@@ -41,14 +41,47 @@ const Calendar = () => {
         localStorage.setItem(`${year}-${month}`, JSON.stringify(thisMonthObj));
     };
 
+    // 달성률 css
+    const makeRateVal = (rate) => {
+        const angle = rate * 3.6;
+        if (rate) {
+            return {
+                background: `conic-gradient(#000000 0deg ${angle}deg, #d9d9d9 ${angle}deg 360deg)`,
+            };
+        } else {
+            return {
+                background: '#d9d9d9',
+            };
+        }
+    };
+
+    const moveHandler = (type) => {
+        if (type === 'prev') {
+            if (month === 1) {
+                setYear(year - 1);
+                setMonth(12);
+            } else {
+                setMonth(month - 1);
+            }
+        } else {
+            if (month === 12) {
+                setYear(year + 1);
+                setMonth(1);
+            } else {
+                setMonth(month + 1);
+            }
+        }
+    };
+
     useEffect(() => {
         const calendarKey = `${year}-${month}`;
         let thisMonthData = localStorage.getItem(calendarKey);
 
         if (!thisMonthData) {
-            makeCalendar();
+            makeCalendar(year, month);
             thisMonthData = localStorage.getItem(calendarKey);
         }
+
         thisMonthData = JSON.parse(thisMonthData);
 
         const { start, last } = getStartAndLastDay(year, month);
@@ -68,7 +101,7 @@ const Calendar = () => {
                 date: idx + 1,
                 ...thisMonthData[idx + 1],
             })),
-            ...createEmptyDays(last),
+            ...createEmptyDays(7 - last),
         ];
 
         const result = [];
@@ -81,9 +114,9 @@ const Calendar = () => {
     return (
         <>
             <div className="calendar-header">
-                <button>&lt;</button>
-                <span>2024년 11월</span>
-                <button>&gt;</button>
+                <button onClick={() => moveHandler('prev')}>&lt;</button>
+                <span>{`${year}년 ${month}월`}</span>
+                <button onClick={() => moveHandler('next')}>&gt;</button>
             </div>
             <section className="calendar-body">
                 <ul className="weekly">
@@ -102,16 +135,41 @@ const Calendar = () => {
                                     week.date ? 'day' : 'empty'
                                 } date`}
                             >
-                                <span className={weekIdx === 6 ? 'red' : ''}>
-                                    {week.date}
-                                </span>
-                                <div className="rate">
-                                    <div className="rate-inner"></div>
-                                </div>
+                                {week.date && (
+                                    <button>
+                                        <span
+                                            className={
+                                                weekIdx === 6 ? 'red' : ''
+                                            }
+                                        >
+                                            {week.date}
+                                        </span>
+                                        <div
+                                            className="rate"
+                                            style={makeRateVal(week.rate)}
+                                        >
+                                            <div className="rate-inner">
+                                                {week.rate ? week.rate : ''}
+                                            </div>
+                                        </div>
+                                    </button>
+                                )}
                             </li>
                         ))}
                     </ul>
                 ))}
+            </section>
+            <section className="calendar-list">
+                <div className="header">
+                    <span>11월 1일</span>
+                    <button>+</button>
+                </div>
+                <ul>
+                    <li>
+                        <input type="checkbox" />
+                        <span>첫번째</span>
+                    </li>
+                </ul>
             </section>
         </>
     );
