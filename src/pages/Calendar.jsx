@@ -8,14 +8,18 @@ const Calendar = () => {
     const nowYear = today.getFullYear();
     const nowMonth = today.getMonth();
 
-    const [dateArr, setDateArr] = useState([]);
+    const [dateArr, setDateArr] = useState([[]]);
     const [year, setYear] = useState(nowYear);
     const [month, setMonth] = useState(nowMonth + 1);
 
-    const getStartDay = (year, month) => {
+    const getStartAndLastDay = (year, month) => {
         const monthIdx = month - 1;
         const thisMonthStart = new Date(year, monthIdx, 1);
-        return thisMonthStart.getDay();
+        const thisMonthLast = new Date(year, monthIdx + 1, 0);
+        return {
+            start: (thisMonthStart.getDay() + 6) % 7,
+            last: (thisMonthLast.getDay() + 6) % 7,
+        };
     };
 
     // storage에 값이 없을 때 실행
@@ -47,11 +51,33 @@ const Calendar = () => {
         }
         thisMonthData = JSON.parse(thisMonthData);
 
-        // 첫 주만 따로 넣고, 그 다음부터 7씩 나누기
-        const weeks = [];
-        const startDay = getStartDay();
+        const { start, last } = getStartAndLastDay(year, month);
+        const thisMonthDataLength = Object.keys(thisMonthData).length;
+
+        const createEmptyDays = (count) => {
+            return Array.from({ length: count }, () => ({
+                date: null,
+                rate: null,
+                todo: null,
+            }));
+        };
+
+        const days = [
+            ...createEmptyDays(start),
+            ...Array.from({ length: thisMonthDataLength }, (_, idx) => ({
+                date: idx + 1,
+                ...thisMonthData[idx + 1],
+            })),
+            ...createEmptyDays(last),
+        ];
+
+        const result = [];
+        for (let date = 0; date < days.length; date += 7) {
+            result.push(days.slice(date, date + 7));
+        }
+
+        setDateArr(result);
     }, [month]);
-    makeCalendar(year, month);
     return (
         <>
             <div className="calendar-header">
@@ -62,18 +88,30 @@ const Calendar = () => {
             <section className="calendar-body">
                 <ul className="weekly">
                     {weekly.map((w) => (
-                        <li key={w}>{w}</li>
+                        <li key={w} className={w === '일' ? 'red' : ''}>
+                            {w}
+                        </li>
                     ))}
                 </ul>
-                {/* ul이 5줄 생김
-                <li>
-                <Link>
-                <span>날짜
-                </span>
-                <div><span></span></div>
-                    </Link>
-                </li>
-                 */}
+                {dateArr.map((weeks, weeksIdx) => (
+                    <ul key={weeksIdx} className="date-list">
+                        {weeks.map((week, weekIdx) => (
+                            <li
+                                key={weekIdx}
+                                className={`${
+                                    week.date ? 'day' : 'empty'
+                                } date`}
+                            >
+                                <span className={weekIdx === 6 ? 'red' : ''}>
+                                    {week.date}
+                                </span>
+                                <div className="rate">
+                                    <div className="rate-inner"></div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                ))}
             </section>
         </>
     );

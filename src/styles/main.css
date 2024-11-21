@@ -114,12 +114,24 @@ body {
     .weekly {
         display: flex;
         font-size: 12px;
+        margin-bottom: 16px;
         li {
             flex-grow: 1;
             text-align: center;
-            &:last-child {
-                color: rgba(255, 47, 47, 1);
+        }
+    }
+    .date-list {
+        display: flex;
+        li {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            span {
+                display: block;
             }
         }
     }
+}
+.red {
+    color: rgba(255, 47, 47, 1);
 }
