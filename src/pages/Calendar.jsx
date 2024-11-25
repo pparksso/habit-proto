@@ -101,7 +101,7 @@ const Calendar = () => {
                 date: idx + 1,
                 ...thisMonthData[idx + 1],
             })),
-            ...createEmptyDays(7 - last),
+            ...createEmptyDays(6 - last),
         ];
 
         const result = [];
@@ -161,13 +161,37 @@ const Calendar = () => {
             </section>
             <section className="calendar-list">
                 <div className="header">
-                    <span>11월 1일</span>
+                    <span>2 .토</span>
                     <button>+</button>
                 </div>
                 <ul>
                     <li>
                         <input type="checkbox" />
-                        <span>첫번째</span>
+                        <p>
+                            hi my name is sohee nice to meet you. It's good
+                            weather today.. I need to go to the library. because
+                            I have to return the book
+                        </p>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <p>swimming</p>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <p>test</p>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <p>study</p>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <p>swimming</p>
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <p>swimming</p>
                     </li>
                 </ul>
             </section>

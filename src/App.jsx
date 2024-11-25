@@ -16,13 +16,8 @@ function App() {
     const getClassNames = () => {
         if (prevLocation.current.pathname === '/loading') return '';
         if (
-            prevLocation.current.pathname === '/' &&
-            location.pathname === '/calendar'
-        )
-            return 'page';
-        if (
             prevLocation.current.pathname === '/calendar' &&
-            location.pathname === '/'
+            location.pathname === '/add'
         )
             return 'bottom';
         return '';
@@ -42,8 +37,8 @@ function App() {
                     classNames={getClassNames()}
                 >
                     <Routes location={location}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/calendar" element={<Calendar />} />
+                        {/* <Route path="/" element={<Home />} /> */}
+                        <Route path="/" element={<Calendar />} />
                         <Route path="/loading" element={<Loading />} />
                         <Route path="/add" element={<Add />} />
                         <Route path="/edit/:id" element={<Add />} />
