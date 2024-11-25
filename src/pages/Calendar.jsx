@@ -7,10 +7,14 @@ const Calendar = () => {
     const today = new Date();
     const nowYear = today.getFullYear();
     const nowMonth = today.getMonth();
+    const nowDate = today.getDate();
+    const nowDay = today.getDay();
 
     const [dateArr, setDateArr] = useState([[]]);
     const [year, setYear] = useState(nowYear);
     const [month, setMonth] = useState(nowMonth + 1);
+    const [date, setDate] = useState(nowDate);
+    const [day, setDay] = useState(weekly[(nowDay + 6) % 7]);
 
     const getStartAndLastDay = (year, month) => {
         const monthIdx = month - 1;
@@ -71,6 +75,10 @@ const Calendar = () => {
                 setMonth(month + 1);
             }
         }
+    };
+
+    const changeDate = (date) => {
+        // 날짜가 바뀌고, 리스트출력(날짜, 요일, 루틴)이 바뀌어야함...
     };
 
     useEffect(() => {
@@ -144,6 +152,9 @@ const Calendar = () => {
                                         >
                                             {week.date}
                                         </span>
+                                        {date === week.date && (
+                                            <div className="today"></div>
+                                        )}
                                         <div
                                             className="rate"
                                             style={makeRateVal(week.rate)}
@@ -161,7 +172,9 @@ const Calendar = () => {
             </section>
             <section className="calendar-list">
                 <div className="header">
-                    <span>2 .토</span>
+                    <span>
+                        {date} .{day}
+                    </span>
                     <button>+</button>
                 </div>
                 <ul>
